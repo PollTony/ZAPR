@@ -41,8 +41,7 @@ public class DU3 {
         }
 
         //Faktoriál
-
-        int factorial = 5;
+        int factorial = 3;
         int result = 1;
         for (int i = 1; i <= factorial; i++){
             result *= i;
@@ -50,9 +49,8 @@ public class DU3 {
         System.out.println("Faktoriál : " + result);
 
         //Celočíselné dělení
-
-        int divident = 45;
-        int divisor2 = 9;
+        int divident = 50;
+        int divisor2 = 5;
         int resultD = 0;
         int remainder = divident;
         while (remainder >= divisor2){
@@ -61,9 +59,7 @@ public class DU3 {
         }
         System.out.println("Výsledek dělení : " + resultD);
 
-
         // Největší spol dělitel
-
         int num1 = 40;
         int num2 = 48;
         int divisor =Math.min(num1, num2);
@@ -71,7 +67,6 @@ public class DU3 {
             --divisor;
         }while (!(num1 % divisor == 0 && num2 % divisor ==0));
         System.out.println("Největší společný dělitel je : " +  divisor);
-
 
     }
 }
