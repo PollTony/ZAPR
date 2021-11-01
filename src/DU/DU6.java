@@ -2,88 +2,98 @@ package DU;
 
 public class DU6 {
 
-    // Vytvorte 1D pole1 o velikosti 10 s čísly 1-10
-    // Vytvorte 1D pole2 o velikosti 10 s náhodnými čísli 0-10
-    // Vytvořte funkce zjistujici minimální hodnotu prvku v poli,
-    // sumu a průměru prvků
-    // Vypočítané hodnoty vypiště do konzole
-    private int max(int[] arr) {
-        int result = 0;
-        for (int num : arr)
-            if (num > result) result = num;
-        return result;
-    }
-
-    private int min(int[] arr) {
-        int result = max(arr);
-        for (int num : arr)
-            if (num < result) result = num;
-        return result;
-    }
-
-    private int sum(int[] arr) {
-        int result = 0;
-        for (int num : arr)
-            result += num;
-        return result;
-    }
-
-    private float avg(int[] arr) {
-        return (float) sum(arr) / arr.length;
-    }
-
-    // vlozi do pole prvek na pozici x, y
-    // zkontroluj, zda se nevklada mimo rozsah pole
-    // navratova hodnota = uspesnost vkladani
-    private boolean insert(int num, int x, int y, int[][] arr) {
-        printArr(arr);
-
-        if (!(x > arr.length || y > arr[0].length || x < 0 || y < 0)) {
-            arr[x][y] = num;
-            printArr(arr);
-            return true;
-        } else return false;
-    }
-
-    // vypise 2D pole do konzole
-    private void printArr(int[][] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr[i].length; j++) {
-                System.out.print(arr[i][j] + "    ");
-            }
-            System.out.println();
-        }
-    }
-
-    // vytvořte pole jako symetricke 2D pole
-    // naplnte hodnotami násobků čísel
-    private int[][] initArr(int size) {
-        int[][] arr = new int[size][size];
-
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr.length; j++) {
-                arr[i][j] = (i + 1) * (j + 1);
-            }
-        }
-        return arr;
-    }
-
-    // Priklad stavu po inicializaci:
-    //pole = inicializace(3)
     private DU6() {
-        int[] arr = new int[]{1, 5, 9, 2, 43, 1, 7, 23};
+        Kruh kruh = new Kruh(5.5);
+        System.out.println(kruh);
 
-        System.out.println(max(arr));
-        System.out.println(min(arr));
-        System.out.println(sum(arr));
-        System.out.println(avg(arr));
-
-        int[][] arr2 = initArr(5);
-        printArr(arr2);
-        insert(99, 3, 3, arr2);
+        SpravcePole spravce = new SpravcePole(10);
+        System.out.println(spravce);
+        System.out.println("Max: " + spravce.max());
+        System.out.println("Min: " + spravce.min());
+        System.out.println("Prumer: " + spravce.prumer());
+        System.out.println("Suma: " + spravce.suma());
     }
 
     public static void main(String[] args) {
-        new DU6();
+        new DU6(); }
+}
+
+class Kruh {
+
+    //atributy
+    private double polomer;
+
+    //konstruktor
+    public Kruh(double polomer) {
+        this.polomer = polomer; }
+
+    //funkce
+    @Override
+    public String toString() {return "Poloměr: " + polomer + ", Obvod: " + dejObvod() + ", Obsah: " + dejObsah();}
+    public double dejObvod() {return 2*Math.PI*polomer;}
+    public double dejObsah() {return Math.PI*polomer*polomer;}
+}
+
+class SpravcePole {
+
+    //atributy
+    private int[] pole;
+
+    //konstruktor
+    public SpravcePole(int delkaPole) {
+        this.pole = Array(delkaPole); }
+
+    //pole
+    private int[] Array(int delkaPole) {
+        int[] arr = new int[delkaPole];
+        for (int i = 0; i < arr.length; i++) arr[i] = (int) (Math.random() * 100);
+        return arr; }
+
+    //Maximum
+    public int max() {
+        int pom;
+        for (int i = 0; i < this.pole.length; i++) {
+            for (int j = 0; j < this.pole.length; j++) {
+                if (this.pole[i] > this.pole[j]) {
+                    pom = this.pole[i];
+                    this.pole[i] = this.pole[j];
+                    this.pole[j] = pom;
+                }
+            }
+        }
+        return pole[0];
+    }
+
+    //Minimum
+    public int min() {
+        int pom;
+        for (int i = 0; i < this.pole.length; i++) {
+            for (int j = 0; j < this.pole.length; j++) {
+                if (this.pole[i] < this.pole[j]) {
+                    pom = this.pole[i];
+                    this.pole[i] = this.pole[j];
+                    this.pole[j] = pom;
+                }
+            }
+        }
+        return this.pole[0];
+    }
+
+    //Suma
+    public int suma() {
+        int result = 0;
+        for (int num : this.pole) result += num;
+        return result;
+    }
+
+    //Průměr
+    public double prumer() {return (double) suma() / this.pole.length;}
+
+    //To String
+    @Override
+    public String toString() {
+        String text = "";
+        for (int i = 0; i < this.pole.length; i++) text += this.pole[i] + ((i != this.pole.length - 1) ? ", " : "");
+        return text;
     }
 }
